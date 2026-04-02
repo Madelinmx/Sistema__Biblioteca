@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión - Librería</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="toast-container"></div>
+
+    <div id="login-section" class="container">
+        <div class="card">
+            <h2>Login Administrativo</h2>
+            <input type="text" id="username" placeholder="Usuario">
+            <input type="password" id="password" placeholder="Contraseña">
+            <button id="btn-login" onclick="login()">Entrar</button>
+        </div>
+    </div>
+
+    <div id="admin-panel" class="container" style="display: none;">
+        <div class="card">
+            <h2 id="form-title">Gestión de Libros</h2>
+            <form id="book-form">
+                <input type="hidden" id="edit-index">
+                <input type="text" id="title" placeholder="Título del libro">
+                <input type="text" id="author" placeholder="Autor">
+                <input type="number" id="year" placeholder="Año de publicación">
+                <select id="genre">
+                    <option value="">Seleccione Género</option>
+                    <option value="Ficción">Ficción</option>
+                    <option value="Novela">Novela</option>
+                    <option value="Historia">Historia</option>
+                    <option value="Ciencia">Ciencia</option>
+                </select>
+                <button type="button" id="btn-action" class="btn-add" onclick="handleAction()">Agregar</button>
+            </form>
+        </div>
+
+        <div class="card table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Año</th>
+                        <th>Género</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="book-list"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let books = [];
+        const loginSection = document.getElementById('login-section');
+        const adminPanel = document.getElementById('admin-panel');
+        const bookList = document.getElementById('book-list');
+        const btnAction = document.getElementById('btn-action');
+
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerText = message;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function login() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            if (user === 'admin' && pass === '1234') {
+                loginSection.style.display = 'none';
+                adminPanel.style.display = 'block';
+            } else {
+                alert('Credenciales incorrectas');
+            }
+        }
+
+        function handleAction() {
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const year = document.getElementById('year').value;
+            const genre = document.getElementById('genre').value;
+            const editIndex = document.getElementById('edit-index').value;
+
+            if (!title || !author || !year || !genre) return;
+
+            if (editIndex === "") {
+                books.push({ title, author, year, genre });
+                showToast("Libro agregado con éxito");
+            } else {
+                books[editIndex] = { title, author, year, genre };
+                showToast("Libro editado con éxito");
+                resetForm();
+            }
+            renderBooks();
+            document.getElementById('book-form').reset();
+        }
+
+        function renderBooks() {
+            bookList.innerHTML = '';
+            books.forEach((book, index) => {
+                const row = `<tr>
+                    <td>${book.title}</td>
+                    <td>${book.author}</td>
+                    <td>${book.year}</td>
+                    <td>${book.genre}</td>
+                    <td>
+                        <button class="btn-edit" onclick="editBook(${index})">Editar</button>
+                        <button class="btn-delete" onclick="deleteBook(${index})">Eliminar</button>
+                    </td>
+                </tr>`;
+                bookList.innerHTML += row;
+            });
+        }
+
+        function editBook(index) {
+            const book = books[index];
+            document.getElementById('title').value = book.title;
+            document.getElementById('author').value = book.author;
+            document.getElementById('year').value = book.year;
+            document.getElementById('genre').value = book.genre;
+            document.getElementById('edit-index').value = index;
+            btnAction.innerText = "Guardar Cambios";
+            btnAction.className = "btn-save";
+        }
+
+        function deleteBook(index) {
+            books.splice(index, 1);
+            renderBooks();
+            showToast("Libro eliminado con éxito");
+        }
+
+        function resetForm() {
+            document.getElementById('edit-index').value = "";
+            btnAction.innerText = "Agregar";
+            btnAction.className = "btn-add";
+        }
+    </script>
+</body>
+</html>

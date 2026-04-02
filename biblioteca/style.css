@@ -1,0 +1,145 @@
+body {
+    background: linear-gradient(135deg, #d6e4f0 0%, #b2c9df 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    color: #4a5568;
+}
+
+.container {
+    width: 90%;
+    max-width: 850px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    border: 1px solid #e1e8ed;
+}
+
+h2 {
+    color: #5d8aa8;
+    margin-top: 0;
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1.5px solid #cbd5e0;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #f8fafc;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #a3bfd9;
+    background-color: #ffffff;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.btn-add { 
+    background-color: #a3bfd9; 
+    color: #ffffff; 
+}
+
+.btn-add:hover { 
+    background-color: #8fb0cc; 
+    transform: translateY(-1px);
+}
+
+.btn-save { 
+    background-color: #fbd38d; 
+    color: #744210; 
+}
+
+.btn-save:hover { 
+    background-color: #f6ad55; 
+}
+
+.btn-edit { 
+    background-color: #bee3f8; 
+    color: #2c5282;
+    margin-right: 8px;
+}
+
+.btn-edit:hover {
+    background-color: #90cdf4;
+}
+
+.btn-delete { 
+    background-color: #fed7d7; 
+    color: #9b2c2c; 
+}
+
+.btn-delete:hover {
+    background-color: #feb2b2;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+th {
+    color: #718096;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    padding: 12px;
+    border-bottom: 2px solid #edf2f7;
+}
+
+td {
+    padding: 15px 12px;
+    background-color: #ffffff;
+    border-top: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+#toast-container {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 1000;
+}
+
+.toast {
+    background: #ffffff;
+    color: #2d3748;
+    padding: 16px 24px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #a3bfd9;
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
